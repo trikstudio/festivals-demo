@@ -1,16 +1,19 @@
 {
   "expo": {
-    "name": "expo-project",
-    "slug": "expo-project",
+    "name": "festivals-demo",
+    "slug": "festivals-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "expo-project",
+    "scheme": "festivals-demo",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.wesleyvandevoorde.expoproject"
+      "bundleIdentifier": "com.wesleyvandevoorde.festivalsdemo",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,7 +24,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "package": "com.wesleyvandevoorde.expoproject"
+      "package": "com.wesleyvandevoorde.festivalsdemo"
     },
     "web": {
       "output": "static",
