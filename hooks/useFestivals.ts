@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { fetchFestival, fetchFestivals } from '@/lib/festivals';
+import { fetchFestival, fetchFestivals } from '@/api/festivals';
 
 export const festivalsQueryKey = ['festivals'];
 

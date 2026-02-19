@@ -3,58 +3,66 @@ import {
   ImageBackground,
   Pressable,
   StyleSheet,
+  Text,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
+import { API_BASE_URL } from "@/api/festivals";
 import type { Festival } from "@/constants/festivals";
-import { useFestivals } from "@/hooks/use-festivals";
+import { useFestivals } from "@/hooks/useFestivals";
+import { formatDate } from "@/utils/date";
 import { Link } from "expo-router";
+
+function getFestivalImageUri(photos?: string[]): string | null {
+  const firstPhoto = photos?.find((photo) => Boolean(photo?.trim()));
+  if (!firstPhoto) {
+    return null;
+  }
+
+  if (firstPhoto.startsWith("http://") || firstPhoto.startsWith("https://")) {
+    return firstPhoto;
+  }
+
+  const apiOrigin = API_BASE_URL.replace(/\/api$/, "");
+  return `${apiOrigin}${firstPhoto.startsWith("/") ? "" : "/"}${firstPhoto}`;
+}
 
 export default function HomeScreen() {
   const { data: festivals, isLoading, isError } = useFestivals();
 
   const renderItem = ({ item }: { item: Festival }) => {
+    const imageUri = getFestivalImageUri(item.photos);
+
     return (
       <Link
-        href={{ pathname: "/festival/[id]", params: { id: item.id } }}
+        href={{ pathname: "/festivalDetail", params: { id: item.id } }}
         asChild
       >
         <Pressable
           style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
         >
           <ImageBackground
-            source={{ uri: `https://picsum.photos/seed/${item.id}/800/600` }}
+            source={{ uri: imageUri ?? `https://picsum.photos/seed/${item.id}/800/600` }}
             style={styles.cardImage}
             imageStyle={styles.cardImageStyle}
           >
             <View style={styles.cardOverlay} />
             <View style={styles.cardContent}>
               <View style={styles.cardHeader}>
-                <ThemedText type="subtitle" lightColor="#fff" darkColor="#fff">
+                <Text style={[styles.textWhite, styles.subtitle]}>
                   {item.name}
-                </ThemedText>
-                <ThemedText
-                  type="defaultSemiBold"
-                  lightColor="#fff"
-                  darkColor="#fff"
-                >
-                  {item.price}
-                </ThemedText>
+                </Text>
+                <Text style={[styles.textWhite, styles.price]}>€{item.price}</Text>
               </View>
               <View style={styles.metaRow}>
-                <ThemedText lightColor="#fff" darkColor="#fff">
-                  {item.location}
-                </ThemedText>
-                <ThemedText lightColor="#fff" darkColor="#fff">
-                  {item.dates}
-                </ThemedText>
+                <Text style={styles.textWhite}>
+                  {item.place}
+                </Text>
+                <Text style={styles.textWhite}>
+                  {formatDate(item.date)}
+                </Text>
               </View>
-              <ThemedText numberOfLines={2} lightColor="#fff" darkColor="#fff">
-                {item.about}
-              </ThemedText>
             </View>
           </ImageBackground>
         </Pressable>
@@ -64,34 +72,31 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ThemedView style={styles.screen}>
+      <View style={styles.screen}>
         {isLoading ? (
           <View style={styles.stateContainer}>
-            <ThemedText>Loading festivals...</ThemedText>
+            <Text>Loading festivals...</Text>
           </View>
         ) : isError ? (
           <View style={styles.stateContainer}>
-            <ThemedText>Could not load festivals.</ThemedText>
-            <ThemedText>Please try again.</ThemedText>
+            <Text>Could not load festivals.</Text>
+            <Text>Please try again.</Text>
           </View>
         ) : (
         <FlatList
-          data={festivals ?? []}
-          keyExtractor={(item) => item.id}
-          renderItem={renderItem}
-          ItemSeparatorComponent={() => <View style={styles.cardSeparator} />}
-          contentContainerStyle={styles.listContent}
-          ListHeaderComponent={
-            <View style={styles.header}>
-              <ThemedText type="title">Festival Finder</ThemedText>
-              <ThemedText>
-                Scroll through festivals and open a detail page.
-              </ThemedText>
-            </View>
-          }
+            data={festivals ?? []}
+            renderItem={renderItem}
+            ItemSeparatorComponent={() => <View style={styles.cardSeparator} />}
+            contentContainerStyle={styles.listContent}
+            ListHeaderComponent={
+              <View style={styles.header}>
+                <Text style={styles.title}>Festival Finder</Text>
+                <Text>Scroll through festivals and open a detail page.</Text>
+              </View>
+            }
         />
         )}
-      </ThemedView>
+      </View>
     </SafeAreaView>
   );
 }
@@ -150,6 +155,21 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     gap: 12,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: "700",
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  price: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  textWhite: {
+    color: "#fff",
   },
   metaRow: {
     flexDirection: "row",
