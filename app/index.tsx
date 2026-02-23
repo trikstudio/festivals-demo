@@ -35,12 +35,7 @@ export default function HomeScreen() {
             <View style={styles.cardOverlay} />
             <View style={styles.cardContent}>
               <View style={styles.cardHeader}>
-                <Text style={[styles.textWhite, styles.subtitle]}>
-                  {item.name}
-                </Text>
-                <Text style={[styles.textWhite, styles.price]}>
-                  €{item.price}
-                </Text>
+                <Text style={[styles.textWhite, styles.subtitle]}>{item.name}</Text>
               </View>
               <View style={styles.metaRow}>
                 <Text style={styles.textWhite}>{item.place}</Text>
@@ -135,9 +130,7 @@ const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: 12,
+    alignItems: "flex-start",
   },
   title: {
     fontSize: 28,
@@ -145,10 +138,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 18,
-    fontWeight: "600",
-  },
-  price: {
-    fontSize: 16,
     fontWeight: "600",
   },
   textWhite: {

@@ -10,7 +10,6 @@ export type Festival = {
   name: string;
   place: string;
   date: string;
-  price: number;
   lineup: LineupArtist[];
   photos: string[];
 };

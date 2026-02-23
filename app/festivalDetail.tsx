@@ -41,7 +41,6 @@ export default function FestivalDetailScreen() {
       <Text>
         {festival.place} • {formatDate(festival.date)}
       </Text>
-      <Text style={styles.price}>€{festival.price}</Text>
 
       <View style={styles.section}>
         <Text style={styles.subtitle}>Lineup</Text>
@@ -75,10 +74,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 20,
-    fontWeight: '600',
-  },
-  price: {
-    fontSize: 18,
     fontWeight: '600',
   },
   fallback: {
