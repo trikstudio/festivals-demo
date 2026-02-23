@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { Link, Stack, useLocalSearchParams } from 'expo-router';
 import { useFestival } from '@/hooks/useFestivals';
@@ -33,6 +33,10 @@ export default function FestivalDetailScreen() {
   return (
     <ScrollView contentContainerStyle={styles.content}>
       <Stack.Screen options={{ title: 'Details', headerTitle: 'Details' }} />
+      <Image
+        source={{ uri: festival.photos[1] || festival.photos[0] || undefined }}
+        style={styles.heroImage}
+      />
       <Text style={styles.title}>{festival.name}</Text>
       <Text>
         {festival.place} • {formatDate(festival.date)}
@@ -55,6 +59,11 @@ const styles = StyleSheet.create({
   content: {
     padding: 20,
     gap: 12,
+  },
+  heroImage: {
+    width: '100%',
+    height: 220,
+    borderRadius: 16,
   },
   section: {
     gap: 6,

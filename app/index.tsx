@@ -8,32 +8,15 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { API_BASE_URL } from "@/api/festivals";
 import type { Festival } from "@/constants/festivals";
 import { useFestivals } from "@/hooks/useFestivals";
 import { formatDate } from "@/utils/date";
 import { Link } from "expo-router";
 
-function getFestivalImageUri(photos?: string[]): string | null {
-  const firstPhoto = photos?.find((photo) => Boolean(photo?.trim()));
-  if (!firstPhoto) {
-    return null;
-  }
-
-  if (firstPhoto.startsWith("http://") || firstPhoto.startsWith("https://")) {
-    return firstPhoto;
-  }
-
-  const apiOrigin = API_BASE_URL.replace(/\/api$/, "");
-  return `${apiOrigin}${firstPhoto.startsWith("/") ? "" : "/"}${firstPhoto}`;
-}
-
 export default function HomeScreen() {
   const { data: festivals, isLoading, isError } = useFestivals();
 
   const renderItem = ({ item }: { item: Festival }) => {
-    const imageUri = getFestivalImageUri(item.photos);
-
     return (
       <Link
         href={{ pathname: "/festivalDetail", params: { id: item.id } }}
@@ -43,7 +26,9 @@ export default function HomeScreen() {
           style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
         >
           <ImageBackground
-            source={{ uri: imageUri ?? `https://picsum.photos/seed/${item.id}/800/600` }}
+            source={{
+              uri: item.photos[0] || undefined,
+            }}
             style={styles.cardImage}
             imageStyle={styles.cardImageStyle}
           >
@@ -53,15 +38,13 @@ export default function HomeScreen() {
                 <Text style={[styles.textWhite, styles.subtitle]}>
                   {item.name}
                 </Text>
-                <Text style={[styles.textWhite, styles.price]}>€{item.price}</Text>
+                <Text style={[styles.textWhite, styles.price]}>
+                  €{item.price}
+                </Text>
               </View>
               <View style={styles.metaRow}>
-                <Text style={styles.textWhite}>
-                  {item.place}
-                </Text>
-                <Text style={styles.textWhite}>
-                  {formatDate(item.date)}
-                </Text>
+                <Text style={styles.textWhite}>{item.place}</Text>
+                <Text style={styles.textWhite}>{formatDate(item.date)}</Text>
               </View>
             </View>
           </ImageBackground>
@@ -83,7 +66,7 @@ export default function HomeScreen() {
             <Text>Please try again.</Text>
           </View>
         ) : (
-        <FlatList
+          <FlatList
             data={festivals ?? []}
             renderItem={renderItem}
             ItemSeparatorComponent={() => <View style={styles.cardSeparator} />}
@@ -94,7 +77,7 @@ export default function HomeScreen() {
                 <Text>Scroll through festivals and open a detail page.</Text>
               </View>
             }
-        />
+          />
         )}
       </View>
     </SafeAreaView>

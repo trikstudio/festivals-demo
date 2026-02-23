@@ -8,11 +8,11 @@ This is an Expo/React Native mobile application. Prioritize mobile-first pattern
 
 When working on this project, **always consult the official Expo documentation** available at:
 
-- **https://docs.expo.dev/llms.txt** - Index of all available documentation files
-- **https://docs.expo.dev/llms-full.txt** - Complete Expo documentation including Expo Router, Expo Modules API, development process
-- **https://docs.expo.dev/llms-eas.txt** - Complete EAS (Expo Application Services) documentation
-- **https://docs.expo.dev/llms-sdk.txt** - Complete Expo SDK documentation
-- **https://reactnative.dev/docs/getting-started** - Complete React Native documentation
+- **<https://docs.expo.dev/llms.txt>** - Index of all available documentation files
+- **<https://docs.expo.dev/llms-full.txt>** - Complete Expo documentation including Expo Router, Expo Modules API, development process
+- **<https://docs.expo.dev/llms-eas.txt>** - Complete EAS (Expo Application Services) documentation
+- **<https://docs.expo.dev/llms-sdk.txt>** - Complete Expo SDK documentation
+- **<https://reactnative.dev/docs/getting-started>** - Complete React Native documentation
 
 These documentation files are specifically formatted for AI agents and should be your **primary reference** for:
 
@@ -26,24 +26,30 @@ These documentation files are specifically formatted for AI agents and should be
 
 ```
 /
-├── app/                   # Expo Router file-based routing
-│   ├── (tabs)/            # Tab-based navigation screens
-│   │   ├── index.tsx      # Home screen
-│   │   ├── explore.tsx    # Explore screen
-│   │   └── _layout.tsx    # Tabs layout
-│   ├── _layout.tsx        # Root layout with theme provider
-│   └── modal.tsx          # Modal screen example
-├── components/            # Reusable React components
-│   ├── ui/                # UI primitives (IconSymbol, Collapsible)
-│   └── ...                # Feature components (themed, haptic, parallax)
-├── constants/             # App-wide constants (theme, colors)
-├── hooks/                 # Custom React hooks (color scheme, theme)
-├── assets/                # Static assets (images, fonts)
-├── scripts/               # Utility scripts (reset-project)
-├── .eas/workflows/        # EAS Workflows (CI/CD automation)
+├── app/                   # Expo Router routes
+│   ├── _layout.tsx        # Root layout
+│   ├── index.tsx          # Home screen
+│   └── festivalDetail.tsx # Festival detail screen
+├── api/
+│   └── festivals.ts       # Festival API requests
+├── assets/
+│   └── images/            # App icons and image assets
+├── constants/
+│   └── festivals.ts       # Festival and lineup TypeScript types
+├── hooks/
+│   └── useFestivals.ts    # React Query hooks for festivals
+├── scripts/
+│   └── reset-project.js   # Project reset utility
+├── utils/
+│   ├── date.ts            # Date formatting utilities
+│   └── date.test.ts       # Date utility tests
+├── _vscode/               # Workspace editor settings
 ├── app.json               # Expo configuration
 ├── eas.json               # EAS Build/Submit configuration
-└── package.json           # Dependencies and scripts
+├── eslint.config.js       # ESLint configuration
+├── package.json           # Dependencies and scripts
+├── tsconfig.json          # TypeScript configuration
+└── README.md              # Project documentation
 ```
 
 ## Essential Commands
@@ -94,7 +100,7 @@ npm run deploy                                      # Deploy to production (work
 
 - Use **Expo Router** for all navigation
 - Import `Link`, `router`, and `useLocalSearchParams` from `expo-router`
-- Docs: https://docs.expo.dev/router/introduction/
+- Docs: <https://docs.expo.dev/router/introduction/>
 
 ### Recommended Libraries
 
@@ -118,7 +124,7 @@ npm run deploy                                      # Deploy to production (work
 
 #### Automated Testing with MCP Tools
 
-Developers can configure the Expo MCP server with the following doc: https://docs.expo.dev/eas/ai/mcp/
+Developers can configure the Expo MCP server with the following doc: <https://docs.expo.dev/eas/ai/mcp/>
 
 - **Component Testing**: Add `testID` props to components for automation
 - **Visual Testing**: Use MCP `automation_take_screenshot` to verify UI appearance
@@ -131,9 +137,9 @@ This project is pre-configured with **EAS Workflows** for automating development
 
 When working with EAS Workflows, **always refer to**:
 
-- https://docs.expo.dev/eas/workflows/ for workflow examples
+- <https://docs.expo.dev/eas/workflows/> for workflow examples
 - The `.eas/workflows/` directory for existing workflow configurations
-- You can check that a workflow YAML is valid using the workflows schema: https://exp.host/--/api/v2/workflows/schema
+- You can check that a workflow YAML is valid using the workflows schema: <https://exp.host/--/api/v2/workflows/schema>
 
 ### Build Profiles (eas.json)
 
@@ -153,10 +159,9 @@ If there are errors in **Expo Go** or the project is not running, create a **dev
 When working on this project:
 
 1. **Always start by consulting the appropriate documentation**:
-
-   - For general Expo questions: https://docs.expo.dev/llms-full.txt
-   - For EAS/deployment questions: https://docs.expo.dev/llms-eas.txt
-   - For SDK/API questions: https://docs.expo.dev/llms-sdk.txt
+   - For general Expo questions: <https://docs.expo.dev/llms-full.txt>
+   - For EAS/deployment questions: <https://docs.expo.dev/llms-eas.txt>
+   - For SDK/API questions: <https://docs.expo.dev/llms-sdk.txt>
 
 2. **Understand before implementing**: Read the relevant docs section before writing code
 
