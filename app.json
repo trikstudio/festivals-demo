@@ -1,13 +1,11 @@
 {
   "expo": {
-    "name": "festivals-demo",
+    "name": "Festivals Demo",
     "slug": "festivals-demo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "festivals-demo",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.wesleyvandevoorde.festivalsdemo",
@@ -22,8 +20,6 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
       "package": "com.wesleyvandevoorde.festivalsdemo"
     },
     "web": {
@@ -45,16 +41,6 @@
         }
       ]
     ],
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "51468886-2826-44e3-8ba0-2d25816c458b"
-      }
-    },
     "owner": "wesleyvandevoorde",
     "updates": {
       "url": "https://u.expo.dev/51468886-2826-44e3-8ba0-2d25816c458b"
