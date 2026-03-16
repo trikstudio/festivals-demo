@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   Image,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,10 +10,11 @@ import {
 
 import { useFestivalDetail } from "@/hooks/useFestivals";
 import { formatDate } from "@/utils/date";
-import { Link, Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 
 export default function FestivalDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const { back } = useRouter();
   const { festival, isLoading, error } = useFestivalDetail(id);
 
   if (isLoading) {
@@ -30,7 +32,9 @@ export default function FestivalDetailScreen() {
         <Stack.Screen options={{ title: "Details" }} />
         <Text style={styles.title}>Festival not found</Text>
         <Text>We could not find that festival.</Text>
-        <Link href="/">Back to list</Link>
+        <Pressable onPress={back}>
+          <Text>Back to list</Text>
+        </Pressable>
       </View>
     );
   }

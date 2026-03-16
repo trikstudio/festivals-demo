@@ -1,7 +1,22 @@
-import type { Festival } from "@/constants/festivals";
-
 export const API_BASE_URL =
   "http://festival-alb-1059646586.eu-central-1.elb.amazonaws.com/api/festivals";
+
+export type LineupArtist = {
+  id: number;
+  name: string;
+  genre: string;
+  photoUrl: string;
+};
+
+export type Festival = {
+  id: number;
+  name: string;
+  place: string;
+  price: string;
+  date: string;
+  lineup: LineupArtist[];
+  photos: string[];
+};
 
 export async function fetchFestivals(): Promise<Festival[]> {
   try {
